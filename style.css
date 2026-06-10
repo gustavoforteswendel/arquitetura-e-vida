@@ -1,0 +1,2199 @@
+/* ============================================================
+   ARQUITETURA E VIDA — CSS EDITORIAL
+   Etapa 2: Composição visual sem animações
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500&display=swap');
+
+/* ============================================================
+   CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --cream:  #F2EEE6;
+  --ink:    #0D0B08;
+  --sand:   #C8B89A;
+  --stone:  #8A7B6A;
+  --linen:  #E4DCD0;
+  --smoke:  #D2CCC3;
+  --mist:   #A8A099;
+
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans:  'Inter', 'Helvetica Neue', Arial, sans-serif;
+
+  --nav-h: 60px;
+}
+
+/* ============================================================
+   RESET BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  /* overflow-y gerenciado pelo GSAP ScrollTrigger pin */
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol { list-style: none; }
+address { font-style: normal; }
+figure { margin: 0; }
+h1, h2, h3 { font-weight: inherit; }
+
+/* ============================================================
+   INTRO LOADER
+   Visível via JS no Stage 3 — aqui define a composição visual
+   ============================================================ */
+#intro-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Estado inicial gerenciado via gsap.set() no Stage 3 */
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Loader: conteúdo centrado */
+#loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+}
+
+/* Cada linha tem overflow hidden para o reveal por yPercent */
+.loader-line-wrap {
+  overflow: hidden;
+  line-height: 1.05;
+}
+
+.loader-line-wrap--e {
+  line-height: 1;
+  margin: 0.05em 0;
+}
+
+/* ARQUITETURA e VIDA — mesmo peso visual */
+#loader-line-arquitetura,
+#loader-line-vida {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(32px, 5.5vw, 80px);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cream);
+  display: flex; /* letras em linha */
+}
+
+/* E — serifado, menor, mais discreto */
+#loader-line-e {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(22px, 3.5vw, 52px);
+  letter-spacing: 0.15em;
+  color: var(--cream);
+  opacity: 0.55;
+}
+
+/* Letras individuais geradas pelo JS */
+.loader-letter {
+  display: inline-block;
+}
+
+/* ============================================================
+   IDENTIDADE FIXA — ARQUITETURA (topo esquerdo) + VIDA (inferior direito)
+   Reveladas pelo JS após o loader, persistem durante toda a navegação
+   ============================================================ */
+#identity-arquitetura {
+  position: fixed;
+  top: 20px;
+  left: 40px;
+  z-index: 810;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0; /* JS revela */
+}
+
+#logo-arquitetura {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.5em;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+#logo-e {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: #fff;
+  line-height: 1;
+  opacity: 0.65;
+}
+
+/* VIDA — âncora inferior direita */
+#identity-vida {
+  position: fixed;
+  bottom: 28px;
+  right: 40px;
+  z-index: 810;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(18px, 2.2vw, 32px);
+  letter-spacing: 0.12em;
+  color: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0; /* JS revela */
+}
+
+/* ============================================================
+   NAVEGAÇÃO FIXA — só os links, identidade é separada
+   ============================================================ */
+#nav-fixed {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 800;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  padding: 0 44px;
+  mix-blend-mode: difference;
+}
+
+#nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+#nav-links a {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #fff;
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+#nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #fff;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#nav-links a:hover { opacity: 0.65; }
+#nav-links a:hover::after { width: 100%; }
+
+/* ============================================================
+   SISTEMA DE SCROLL HORIZONTAL
+   Stage 2: overflow-x: scroll para visualização em CSS puro
+   Stage 3: GSAP substituirá por pinning + translateX
+   ============================================================ */
+#horizontal-scroll {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#horizontal-scroll::-webkit-scrollbar { display: none; }
+
+#horizontal-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  will-change: transform;
+}
+
+/* ============================================================
+   CAPÍTULOS — BASE COMPARTILHADA
+   ============================================================ */
+.chapter {
+  position: relative;
+  height: 100vh;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.chapter-inner {
+  position: absolute;
+  inset: 0;
+}
+
+/* ============================================================
+   CAPÍTULO 01 — MANIFESTO
+   Luz. Espaço. A declaração de intenção do escritório.
+   ============================================================ */
+#chapter-manifesto {
+  width: 220vw;
+  background: var(--cream);
+}
+
+/* Headline principal — posicionada para invadir o espaço */
+.manifesto-headline {
+  position: absolute;
+  top: 14vh;
+  left: 5.5vw;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.headline-line {
+  display: block;
+  line-height: 0.87;
+}
+
+.manifesto-headline .headline-serif {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(80px, 13vw, 190px);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.manifesto-headline .headline-sans {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(60px, 10vw, 148px);
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+
+/* Texto corrido do manifesto */
+.manifesto-body {
+  position: absolute;
+  bottom: 11vh;
+  left: 6vw;
+  z-index: 4;
+  max-width: 400px;
+}
+
+.manifesto-body p {
+  font-family: var(--font-sans);
+  font-size: clamp(28px, 0.95vw, 15px);
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--ink);
+  letter-spacing: 0.025em;
+  opacity: 0.72;
+}
+
+/* Imagem héroe — visível no primeiro viewport (55vw a 98vw da tela) */
+.image-block--hero {
+  position: absolute;
+  top: 0;
+  left: 55vw;
+  width: 45vw;
+  height: 100vh;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.image-block--hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Composição de imagens — assimétrica, sobreposta */
+.manifesto-images {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.manifesto-images .image-block {
+  position: absolute;
+  overflow: hidden;
+}
+
+.manifesto-images .image-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Imagem principal: alta, à direita, do topo ao quase fundo */
+.manifesto-images .image-block--primary {
+  top: 0;
+  right: 9vw;
+  width: 54vw;
+  height: 78vh;
+  z-index: 1;
+}
+
+/* Imagem secundária: invade a primária pela esquerda, de baixo */
+.manifesto-images .image-block--secondary {
+  bottom: 0;
+  right: 44vw;
+  width: 30vw;
+  height: 45vh;
+  z-index: 2;
+}
+
+/* Imagem de acento: pequena, canto inferior direito */
+.manifesto-images .image-block--accent {
+  bottom: 7vh;
+  right: 4vw;
+  width: 20vw;
+  height: 30vh;
+  z-index: 3;
+}
+
+/* Interlúdio tipográfico — ocupa o vazio entre hero e imagens */
+.manifesto-interlude {
+  position: absolute;
+  top: 50%;
+  left: 107vw;
+  transform: translateY(-52%);
+  z-index: 3;
+  pointer-events: none;
+  width: 42vw;
+}
+
+.interlude-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 300;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 1.6em;
+}
+
+.interlude-serif {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(52px, 7.8vw, 114px);
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  color: var(--ink);
+  margin: 0;
+}
+
+.interlude-sans {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(38px, 5.8vw, 86px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink);
+  margin: 0.06em 0 0 0;
+}
+
+.interlude-sub {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(13px, 1vw, 16px);
+  letter-spacing: 0.08em;
+  color: var(--stone);
+  margin-top: 2em;
+  opacity: 0.8;
+}
+
+/* ============================================================
+   PALAVRAS DE FUNDO ADICIONAIS — manifesto
+   Preenchem os gaps do primeiro viewport e do interlúdio
+   ============================================================ */
+.manifesto-bg-word {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(120px, 22vw, 340px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--linen);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+/* Gap 1 — acima do headline "Arquitetura e vida." (0–55vw) */
+.manifesto-bg-word--materia {
+  top: -0.16em;       /* cortada no topo — só a parte inferior visível */
+  left: -0.02em;
+  font-style: normal;
+  opacity: 0.36;
+}
+
+/* Gap 2 — base do viewport do interlúdio (107vw+) */
+.manifesto-bg-word--silencio {
+  bottom: -0.08em;    /* cortada na base — cria profundidade no rodapé */
+  left: 110vw;
+  font-style: italic;
+  opacity: 0.40;
+}
+
+/* Gap 3 — final do capítulo Sobre (222–260vw) */
+.about-bg-word--projeto {
+  top: 0.1em;
+  left: 225vw;
+  font-style: italic;
+}
+
+/* Palavra decorativa de fundo — massa tipográfica */
+.manifesto-word-decor {
+  position: absolute;
+  bottom: -5vh;
+  right: 1vw;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.manifesto-word-decor span {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(120px, 22vw, 340px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--linen);
+  opacity: 0.55;
+  display: block;
+}
+
+/* ============================================================
+   CAPÍTULO 02 — SOBRE
+   Intimidade. As pessoas por trás da arquitetura.
+   ============================================================ */
+#chapter-about {
+  width: 260vw;
+  background: var(--ink);
+}
+
+/* Título "Sobre" — ao lado dos retratos, não no extremo direito */
+.about-headline {
+  position: absolute;
+  top: 6vh;
+  left: 72vw;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.about-headline .headline-serif {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(64px, 11vw, 160px);
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  line-height: 1;
+}
+
+/* Grupo de retratos — composição livre */
+.about-portrait-group {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.portrait {
+  position: absolute;
+  overflow: hidden;
+}
+
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Retrato dominante: à esquerda, quase full-height */
+.portrait--lead {
+  top: 0;
+  left: 4vw;
+  width: 38vw;
+  height: 84vh;
+  z-index: 1;
+}
+
+/* Retrato secundário: sobrepõe o lead pela direita, de baixo */
+.portrait--secondary {
+  bottom: 0;
+  left: 28vw;
+  width: 26vw;
+  height: 52vh;
+  z-index: 2;
+}
+
+/* Retrato terciário: flutua no alto, mais à direita */
+.portrait--tertiary {
+  top: 6vh;
+  left: 46vw;
+  width: 20vw;
+  height: 44vh;
+  z-index: 3;
+}
+
+/* Bloco de texto — junto dos retratos */
+.about-text-block {
+  position: absolute;
+  top: 50%;
+  left: 72vw;
+  right: auto;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: clamp(260px, 27vw, 400px);
+}
+
+.about-statement {
+  font-size: clamp(20px, 2.6vw, 40px);
+  line-height: 1.45;
+  color: var(--cream);
+  margin-bottom: 2em;
+  letter-spacing: -0.01em;
+}
+
+.about-body {
+  font-size: clamp(15px, 1.25vw, 20px);
+  line-height: 1.85;
+  color: var(--smoke);
+  letter-spacing: 0.01em;
+}
+
+/* Alternância tipográfica dentro dos textos do Sobre */
+.ab-serif {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+}
+
+.ab-sans {
+  font-family: var(--font-sans);
+  font-weight: 300;
+}
+
+/* Cards das arquitetas — linha inferior esquerda */
+.about-architects {
+  position: absolute;
+  bottom: 7vh;
+  left: 5vw;
+  z-index: 5;
+  display: flex;
+  gap: 0;
+}
+
+.architect-card {
+  display: flex;
+  flex-direction: column;
+  padding-right: 4vw;
+}
+
+.architect-card figure {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 14px;
+  border: 1px solid rgba(242, 238, 230, 0.12);
+}
+
+.architect-card figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.architect-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.architect-name {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+.architect-role {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--sand);
+}
+
+/* --- Zona extra de imagens do Sobre (96vw → 253vw) --- */
+.about-extra {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Palavras de fundo — massa tipográfica de baixa opacidade */
+.about-bg-word {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(180px, 26vw, 400px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: rgba(242, 238, 230, 0.07);
+  user-select: none;
+  pointer-events: none;
+}
+
+.about-bg-word--pessoas {
+  bottom: -0.1em;
+  left: 93vw;
+  font-style: normal;
+}
+
+.about-bg-word--vida {
+  top: -0.2em;
+  left: 170vw;
+  font-style: italic;
+}
+
+/* Imagens absolutas da zona extra */
+.about-extra-img {
+  position: absolute;
+  overflow: hidden;
+}
+
+.about-extra-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+}
+
+/* Composição 1 */
+.about-extra-img--a {
+  top: 5vh;
+  left: 96vw;
+  width: 44vw;
+  height: 72vh;
+  z-index: 2;
+}
+
+.about-extra-img--b {
+  bottom: 5vh;
+  left: 124vw;
+  width: 28vw;
+  height: 46vh;
+  z-index: 3;
+}
+
+/* Composição 2 */
+.about-extra-img--c {
+  top: 8vh;
+  left: 168vw;
+  width: 40vw;
+  height: 64vh;
+  z-index: 2;
+}
+
+.about-extra-img--d {
+  bottom: 8vh;
+  left: 196vw;
+  width: 26vw;
+  height: 42vh;
+  z-index: 3;
+}
+
+/* ============================================================
+   CAPÍTULO 03 — PROJETOS
+   O trabalho. Cada projeto com identidade própria.
+   ============================================================ */
+#chapter-projects {
+  width: 310vw;
+  background: var(--cream);
+}
+
+/* Label "Projetos" — discreta no topo esquerdo */
+.projects-headline {
+  position: absolute;
+  top: 9vh;
+  left: 5.5vw;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.projects-headline .headline-sans {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* Grid de projetos — cobre 300vw dos 310vw do capítulo */
+.projects-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300vw;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.project-entry {
+  position: relative;
+  flex: 0 0 100vw;
+  height: 100%;
+  overflow: hidden;
+}
+
+.project-entry + .project-entry {
+  border-left: 1px solid var(--smoke);
+}
+
+.project-entry a {
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+
+/* Imagem de cobertura — full-bleed */
+.project-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.project-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-entry:hover .project-cover img {
+  transform: scale(1.04);
+}
+
+/* Gradiente sobre a imagem — legibilidade do texto */
+.project-entry a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(13, 11, 8, 0.78) 0%,
+    rgba(13, 11, 8, 0.22) 45%,
+    rgba(13, 11, 8, 0.04) 72%,
+    transparent 100%
+  );
+}
+
+/* Metadados do projeto — sobre o gradiente */
+.project-meta {
+  position: absolute;
+  bottom: 9vh;
+  left: 7vw;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Número gigante como elemento decorativo de fundo */
+.project-index {
+  position: absolute;
+  bottom: calc(100% - 0.08em);
+  left: -0.06em;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(110px, 18vw, 260px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(242, 238, 230, 0.09);
+  pointer-events: none;
+  display: block;
+  z-index: 0;
+}
+
+.project-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(36px, 4.5vw, 66px);
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  color: var(--cream);
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 3;
+}
+
+.project-type {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--sand);
+  position: relative;
+  z-index: 3;
+}
+
+/* Foto de detalhe — topo direito de cada projeto */
+.project-detail {
+  position: absolute;
+  top: 7vh;
+  right: 0;
+  width: 36vw;
+  height: 44vh;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.project-detail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tira de imagens ambient — extremidade direita do capítulo */
+.projects-ambient-images {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10vw;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.projects-ambient-images .image-block {
+  flex: 1;
+  overflow: hidden;
+}
+
+.projects-ambient-images .image-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.75);
+}
+
+/* ============================================================
+   CAPÍTULO 04 — CONTATO
+   Encerramento. A conversa que começa.
+   ============================================================ */
+#chapter-contact {
+  width: 160vw;
+  background: var(--ink);
+}
+
+/* Imagem de fundo — full-bleed, velada */
+.contact-ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.contact-ambient .image-block--fullbleed {
+  width: 100%;
+  height: 100%;
+}
+
+.contact-ambient .image-block--fullbleed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.28;
+}
+
+/* Headline do contato — livre, grande, à esquerda */
+.contact-headline {
+  position: absolute;
+  top: 16vh;
+  left: 7vw;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.contact-headline .headline-serif {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(72px, 12.5vw, 190px);
+  letter-spacing: -0.02em;
+  line-height: 0.88;
+  color: var(--cream);
+}
+
+.contact-headline .headline-sans {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(56px, 9.5vw, 148px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--cream);
+}
+
+/* Subtexto */
+.contact-body {
+  position: absolute;
+  top: 58vh;
+  left: 8vw;
+  z-index: 3;
+  max-width: 280px;
+}
+
+.contact-body p {
+  font-family: var(--font-sans);
+  font-size: clamp(12px, 0.9vw, 14px);
+  font-weight: 300;
+  color: var(--smoke);
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+}
+
+/* Dados de contato */
+.contact-details {
+  position: absolute;
+  bottom: 10vh;
+  left: 8vw;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-email,
+.contact-instagram {
+  font-family: var(--font-sans);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--sand);
+  transition: color 0.35s ease;
+}
+
+.contact-email:hover,
+.contact-instagram:hover {
+  color: var(--cream);
+}
+
+/* Identidade de fechamento — watermark no canto inferior direito */
+.contact-closing-identity {
+  position: absolute;
+  bottom: -2vh;
+  right: 3vw;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.closing-arquitetura {
+  font-family: var(--font-sans);
+  font-size: clamp(8px, 0.7vw, 10px);
+  font-weight: 400;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(242, 238, 230, 0.22);
+  margin-bottom: 4px;
+}
+
+.closing-vida {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(80px, 14vw, 210px);
+  letter-spacing: -0.02em;
+  line-height: 0.88;
+  color: rgba(242, 238, 230, 0.06);
+}
+
+/* Imagem lateral — direita do contato */
+.contact-image-side {
+  position: absolute;
+  top: 4vh;
+  right: 0;
+  width: 52vw;
+  height: 62vh;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.contact-image-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================================
+   MOBILE — Ajustes editoriais para viewport estreita
+   Desktop é prioritário; mobile mantém identidade visual
+   ============================================================ */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  #horizontal-scroll {
+    height: auto;
+    overflow: visible;
+  }
+
+  #horizontal-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .chapter {
+    width: 100% !important;
+    height: auto;
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .chapter-inner {
+    position: relative;
+    inset: unset;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Identidade mobile — redimensionar e reposicionar */
+  #identity-arquitetura {
+    top: 16px;
+    left: 24px;
+  }
+  #identity-vida {
+    bottom: 20px;
+    right: 24px;
+    font-size: clamp(14px, 4vw, 22px);
+  }
+
+  /* Nav mobile */
+  #nav-fixed {
+    right: 0;
+    padding: 0 24px;
+    mix-blend-mode: normal;
+    background: rgba(13, 11, 8, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  #nav-links { display: none; }
+
+  /* Hero image mobile — ocultar (tela estreita, desnecessária) */
+  .image-block--hero { display: none; }
+
+  /* Interlúdio mobile — ocultar (posicionamento absoluto em vw não funciona no layout vertical) */
+  .manifesto-interlude { display: none; }
+
+  /* Manifesto mobile */
+  #chapter-manifesto {
+    background: var(--cream);
+    padding: 100px 28px 60px;
+    min-height: 100svh;
+  }
+
+  .manifesto-headline,
+  .manifesto-body,
+  .manifesto-images,
+  .manifesto-word-decor {
+    position: relative;
+    inset: unset;
+    transform: none;
+  }
+
+  .manifesto-headline .headline-serif {
+    font-size: clamp(56px, 15vw, 96px);
+  }
+
+  .manifesto-headline .headline-sans {
+    font-size: clamp(44px, 12vw, 76px);
+  }
+
+  .manifesto-body {
+    max-width: 100%;
+    margin-top: 36px;
+  }
+
+  .manifesto-images {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 44px;
+  }
+
+  .manifesto-images .image-block {
+    width: 100%;
+    height: 55vw;
+  }
+
+  .manifesto-images .image-block--secondary {
+    width: 70%;
+    align-self: flex-end;
+  }
+
+  .manifesto-images .image-block--accent { display: none; }
+  .manifesto-word-decor { display: none; }
+  .manifesto-bg-word { display: none; }
+
+  /* Sobre mobile */
+  #chapter-about {
+    padding: 100px 28px 60px;
+    min-height: 100svh;
+  }
+
+  .about-headline,
+  .about-portrait-group,
+  .about-text-block,
+  .about-images-secondary,
+  .about-architects {
+    position: relative;
+    inset: unset;
+    transform: none;
+  }
+
+  .about-headline {
+    margin-bottom: 40px;
+  }
+
+  .about-headline .headline-serif {
+    font-size: clamp(52px, 14vw, 80px);
+  }
+
+  .about-portrait-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 44px;
+  }
+
+  .portrait {
+    position: relative;
+    width: 100%;
+    height: 65vw;
+  }
+
+  .portrait--secondary { width: 72%; align-self: flex-end; }
+  .portrait--tertiary { display: none; }
+
+  .about-text-block {
+    width: 100%;
+    margin-bottom: 44px;
+  }
+
+  .about-images-secondary { display: none; }
+  .about-extra { display: none; }
+
+  .about-architects {
+    flex-direction: row;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .architect-card { padding-right: 32px; padding-bottom: 16px; }
+
+  /* Projetos mobile */
+  #chapter-projects {
+    min-height: unset;
+    padding: 80px 0 0;
+  }
+
+  .projects-headline {
+    position: relative;
+    inset: unset;
+    padding: 0 28px;
+    margin-bottom: 32px;
+  }
+
+  .projects-grid {
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .project-entry {
+    flex: none;
+    width: 100%;
+    height: 80vw;
+    border-left: none;
+    border-bottom: 1px solid rgba(210, 204, 195, 0.2);
+  }
+
+  .project-detail,
+  .projects-ambient-images { display: none; }
+
+  .project-meta {
+    bottom: 8vw;
+    left: 8vw;
+  }
+
+  .project-title { font-size: clamp(28px, 8vw, 44px); }
+
+  /* Contato mobile */
+  #chapter-contact {
+    padding: 100px 28px 60px;
+    min-height: 100svh;
+  }
+
+  .contact-ambient,
+  .contact-headline,
+  .contact-body,
+  .contact-details,
+  .contact-closing-identity,
+  .contact-image-side {
+    position: relative;
+    inset: unset;
+    transform: none;
+  }
+
+  .contact-ambient {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+  }
+
+  .contact-headline {
+    margin-bottom: 32px;
+  }
+
+  .contact-headline .headline-serif {
+    font-size: clamp(56px, 16vw, 96px);
+  }
+
+  .contact-headline .headline-sans {
+    font-size: clamp(44px, 13vw, 76px);
+  }
+
+  .contact-body { max-width: 100%; margin-bottom: 40px; }
+
+  .contact-image-side {
+    width: 100%;
+    height: 56vw;
+    margin-top: 40px;
+  }
+
+  .contact-closing-identity {
+    margin-top: 40px;
+    text-align: right;
+  }
+
+  .closing-vida {
+    font-size: clamp(56px, 18vw, 100px);
+  }
+}
+
+/* ============================================================
+   PÁGINAS DE PROJETO — layout editorial vertical
+   ============================================================ */
+
+/* Identidade fixa (mesma posição da Home, sem loader) */
+.page-identity-arq {
+  position: fixed;
+  top: 20px;
+  left: 40px;
+  z-index: 810;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+}
+
+.page-identity-arq .arq-text {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.5em;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.page-identity-arq .e-text {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  color: #fff;
+  opacity: 0.65;
+}
+
+.page-identity-vida {
+  position: fixed;
+  bottom: 28px;
+  right: 40px;
+  z-index: 810;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(18px, 2.2vw, 32px);
+  letter-spacing: 0.12em;
+  color: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+}
+
+/* Navegação das páginas de projeto */
+.proj-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 800;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  padding: 0 44px;
+  mix-blend-mode: difference;
+}
+
+.proj-nav a {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #fff;
+  transition: opacity 0.3s ease;
+  position: relative;
+}
+
+.proj-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #fff;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.proj-nav a:hover { opacity: 0.65; }
+.proj-nav a:hover::after { width: 100%; }
+
+/* ---- Hero ---- */
+.proj-hero {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.proj-content {
+  position: relative;
+  z-index: 1;
+  background: var(--ink);
+}
+
+.proj-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.proj-hero-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.proj-hero-bg img {
+  width: 100%;
+  height: 115%;
+  object-fit: cover;
+  object-position: center 20%;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.proj-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(13, 11, 8, 0.78) 0%,
+    rgba(13, 11, 8, 0.22) 50%,
+    rgba(13, 11, 8, 0.06) 100%
+  );
+}
+
+.proj-hero-content {
+  position: absolute;
+  bottom: 11vh;
+  left: 7vw;
+  z-index: 3;
+}
+
+.proj-hero-category {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--sand);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.proj-hero-title { line-height: 0.88; }
+
+.proj-line-wrap {
+  overflow: hidden;
+}
+
+.proj-title-l1 {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(64px, 10.5vw, 155px);
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  line-height: 0.88;
+}
+
+.proj-title-l2 {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: clamp(42px, 6.8vw, 100px);
+  letter-spacing: -0.04em;
+  color: var(--cream);
+  line-height: 1;
+}
+
+/* Indicador de scroll */
+.proj-scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  right: 7vw;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 7px;
+  font-weight: 300;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: rgba(242, 238, 230, 0.38);
+}
+
+.proj-scroll-line {
+  width: 1px;
+  height: 44px;
+  background: rgba(242, 238, 230, 0.22);
+}
+
+/* ---- Seções de texto ---- */
+.proj-section {
+  padding: 14vh 0 10vh;
+}
+
+.proj-section--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8vw;
+  padding-left: 8vw;
+  padding-right: 8vw;
+}
+
+.proj-section--left {
+  padding-left: 8vw;
+  padding-right: 30vw;
+}
+
+.proj-section--right {
+  padding-left: 30vw;
+  padding-right: 8vw;
+}
+
+.proj-section--center {
+  padding-left: 14vw;
+  padding-right: 14vw;
+}
+
+.proj-label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--stone);
+  display: block;
+  margin-bottom: 28px;
+}
+
+.proj-quote {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(26px, 3.2vw, 52px);
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+  margin-bottom: 2.4em;
+}
+
+.proj-body {
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 0.9vw, 15px);
+  font-weight: 300;
+  line-height: 2.05;
+  color: var(--smoke);
+  letter-spacing: 0.025em;
+}
+
+.proj-body + .proj-body {
+  margin-top: 1.8em;
+}
+
+.proj-sep {
+  width: 32px;
+  height: 1px;
+  background: var(--stone);
+  margin: 3.5em 0;
+  opacity: 0.5;
+}
+
+/* ---- Galeria ---- */
+.proj-gallery {
+  padding-bottom: 2px;
+}
+
+/* Bloco de imagem individual da galeria */
+.gal-block {
+  overflow: hidden;
+  display: block;
+}
+
+.gal-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Layout: imagem grande esquerda + menor direita */
+.gal-duo {
+  display: grid;
+  grid-template-columns: 62fr 36fr;
+  gap: 3px;
+  align-items: end;
+  padding: 0 6vw 3px 0;
+}
+
+.gal-duo .gal-main  { height: 78vh; }
+.gal-duo .gal-side  { height: 54vh; }
+
+/* Layout: imagem full-width */
+.gal-full .gal-block { height: 65vh; width: 100%; }
+
+/* Layout: três imagens — coluna esquerda + duas direita */
+.gal-triple {
+  display: grid;
+  grid-template-columns: 46fr 52fr;
+  gap: 3px;
+  padding: 3px 0;
+}
+
+.gal-triple-left .gal-block  { height: 72vh; }
+
+.gal-triple-right {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gal-triple-right .gal-block-a { flex: 0 0 47vh; }
+.gal-triple-right .gal-block-b { flex: 1; }
+
+/* Layout: imagem deslocada à direita */
+.gal-right {
+  display: flex;
+  justify-content: flex-end;
+  padding: 3px 0;
+}
+
+.gal-right .gal-block { width: 62vw; height: 72vh; }
+
+/* Layout: duo assimétrico (grande direita, pequena esquerda) */
+.gal-asymm {
+  display: grid;
+  grid-template-columns: 38fr 60fr;
+  gap: 3px;
+  align-items: start;
+}
+
+.gal-asymm .gal-small { height: 52vh; margin-top: 14vh; }
+.gal-asymm .gal-large { height: 78vh; }
+
+/* ---- Número decorativo de fundo ---- */
+.proj-num-decor {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(140px, 22vw, 320px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(242, 238, 230, 0.04);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ---- Footer CTA ---- */
+.proj-footer {
+  padding: 14vh 9vw 12vh;
+  border-top: 1px solid rgba(242, 238, 230, 0.08);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.proj-footer-cta {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(34px, 4.5vw, 68px);
+  line-height: 1.12;
+  color: var(--cream);
+  max-width: 540px;
+}
+
+.proj-footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+.proj-footer-link {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--sand);
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.proj-footer-link span { transition: transform 0.3s ease; }
+.proj-footer-link:hover { color: var(--cream); }
+.proj-footer-link:hover span { transform: translateX(4px); }
+
+/* ---- Mobile ---- */
+@media (max-width: 768px) {
+  .page-identity-arq { top: 16px; left: 24px; }
+  .page-identity-vida { bottom: 20px; right: 24px; font-size: clamp(14px, 4vw, 22px); }
+
+  .proj-nav { padding: 0 24px; gap: 24px; }
+
+  .proj-hero-content { left: 6vw; bottom: 10vh; }
+  .proj-title-l1 { font-size: clamp(44px, 13vw, 80px); }
+  .proj-title-l2 { font-size: clamp(32px, 9vw, 56px); }
+
+  .proj-section--split,
+  .proj-section--left,
+  .proj-section--right,
+  .proj-section--center {
+    padding: 10vh 7vw 7vh;
+    display: block;
+  }
+
+  .proj-quote { font-size: clamp(22px, 6vw, 36px); }
+
+  .gal-duo,
+  .gal-triple,
+  .gal-asymm { display: block; padding: 0; }
+
+  .gal-duo .gal-main,
+  .gal-duo .gal-side,
+  .gal-triple-left .gal-block,
+  .gal-triple-right .gal-block-a,
+  .gal-triple-right .gal-block-b,
+  .gal-asymm .gal-small,
+  .gal-asymm .gal-large,
+  .gal-full .gal-block { height: 65vw; margin: 0; }
+
+  .gal-right { padding: 0; }
+  .gal-right .gal-block { width: 100%; height: 65vw; }
+
+  .proj-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 44px;
+  }
+  .proj-footer-links { align-items: flex-start; }
+}
+
+/* ============================================================
+   PÁGINA SOBRE
+   ============================================================ */
+
+/* --- Hero --- */
+.sobre-hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.sobre-hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 18vh 7vw 12vh;
+}
+
+.sobre-eyebrow {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 2.6em;
+}
+
+.sobre-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(48px, 5.8vw, 88px);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin: 0;
+}
+
+.sobre-heading em {
+  font-style: italic;
+  color: var(--sand);
+}
+
+.sobre-hero-img {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+
+.sobre-hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* --- Declaração --- */
+.sobre-statement-section {
+  background: var(--cream);
+  padding: 14vh 7vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8vw;
+  align-items: start;
+}
+
+.sobre-statement-text {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.6vw, 40px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.sobre-body-text {
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 1.0vw, 15px);
+  font-weight: 300;
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+  color: var(--stone);
+  margin: 0;
+  padding-top: 0.4em;
+}
+
+/* --- Equipe --- */
+.sobre-team {
+  background: var(--ink);
+  padding: 14vh 7vw 16vh;
+}
+
+.sobre-team-header {
+  margin-bottom: 6vh;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 3.2em;
+}
+
+.sobre-architects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5vw;
+}
+
+.sobre-architect-photo {
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: 2/3;
+  background: #1a1816;
+}
+
+.sobre-architect-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.sobre-architect-info {
+  padding-top: 1.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+}
+
+.sobre-architect-name {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+.sobre-architect-role {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(14px, 1.1vw, 17px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--stone);
+}
+
+/* --- Responsive: sobre --- */
+@media (max-width: 768px) {
+  .sobre-hero { grid-template-columns: 1fr; min-height: auto; }
+  .sobre-hero-text { padding: 20vh 6vw 8vh; order: 2; }
+  .sobre-hero-img { height: 65vw; order: 1; }
+
+  .sobre-statement-section {
+    grid-template-columns: 1fr;
+    gap: 5vw;
+    padding: 10vh 6vw;
+  }
+
+  .sobre-architects { grid-template-columns: 1fr; gap: 8vw; }
+  .sobre-architect-photo { aspect-ratio: 3/4; }
+  .sobre-team { padding: 10vh 6vw 12vh; }
+}
+
+/* ============================================================
+   PÁGINA PROJETOS
+   Técnica: covers fixos (position: fixed) empilhados por z-index
+   + info panels fixos + driver de scroll para altura total
+   ============================================================ */
+
+/* --- Body da página projetos --- */
+.projetos-page {
+  overflow-x: hidden;
+}
+
+/* --- Covers fixos --- */
+.pj-cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#cover-1 { z-index: 1; }
+#cover-2 { z-index: 2; }
+#cover-3 { z-index: 3; }
+
+.pj-cover-img {
+  position: absolute;
+  inset: 0;
+}
+
+.pj-cover-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pj-cover-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.80) 0%,
+    rgba(0, 0, 0, 0.20) 45%,
+    rgba(0, 0, 0, 0.0) 100%
+  );
+}
+
+.pj-cover-meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 9vh 8vw;
+}
+
+.pj-cover-num {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 1.1em;
+}
+
+.pj-cover-title {
+  font-family: var(--font-serif);
+  font-size: clamp(38px, 5.2vw, 78px);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin: 0 0 0.55em;
+}
+
+.pj-cover-cat {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+/* --- Info panels (fixos, sobre os covers) --- */
+.pj-info {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  visibility: hidden; /* gsap autoAlpha cuida disso */
+}
+
+.pj-info-text {
+  padding: 4.5vh 7vw 5.5vh;
+  background: rgba(13, 11, 8, 0.90);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1.3em;
+  height: 40vh;
+}
+
+.pj-info-cat {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.pj-info-desc {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 1.7vw, 26px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--cream);
+  margin: 0;
+}
+
+.pj-info-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--cream);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 0.45em;
+  width: fit-content;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.pj-info-btn:hover {
+  color: var(--sand);
+  border-color: var(--sand);
+}
+
+.pj-info-thumb {
+  overflow: hidden;
+  height: 40vh;
+}
+
+.pj-info-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Driver de scroll + anchors --- */
+.pj-scroll-driver {
+  position: relative;
+  z-index: 0;
+}
+
+.pj-anchor {
+  height: 250vh;
+}
+
+/* --- Rodapé pós-projetos --- */
+.pj-outro {
+  position: relative;
+  z-index: 10; /* cobre os fixed covers quando rolar até aqui */
+  background: var(--ink);
+  padding: 16vh 8vw 14vh;
+  display: flex;
+  flex-direction: column;
+  gap: 5vh;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pj-outro-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 4.5vw, 64px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-style: italic;
+  color: var(--cream);
+  margin: 0;
+}
+
+.pj-outro-links {
+  display: flex;
+  gap: 3.5vw;
+}
+
+/* --- Responsive: projetos --- */
+@media (max-width: 768px) {
+  .pj-cover-title { font-size: clamp(32px, 9vw, 52px); }
+  .pj-cover-meta  { padding: 8vh 6vw; }
+
+  .pj-info {
+    grid-template-columns: 1fr;
+  }
+
+  .pj-info-thumb {
+    display: none; /* oculta thumb no mobile, foco no texto */
+  }
+
+  .pj-info-text {
+    height: auto;
+    padding: 4vh 6vw 5vh;
+  }
+
+  .pj-anchor { height: 220vh; }
+
+  .pj-outro { padding: 10vh 6vw 8vh; }
+  .pj-outro-links { flex-direction: column; gap: 2vh; }
+}

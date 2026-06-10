@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casa MP — Arquitetura e Vida</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+    img { display: block; }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Identidade fixa -->
+  <div class="page-identity-arq" aria-hidden="true">
+    <span class="arq-text">ARQUITETURA</span>
+    <span class="e-text">E</span>
+  </div>
+  <div class="page-identity-vida" aria-hidden="true">VIDA</div>
+
+  <!-- Navegação -->
+  <nav class="proj-nav" aria-label="Navegação do projeto">
+    <a href="index.html#chapter-projects">← Projetos</a>
+    <a href="index.html#chapter-contact">Contato</a>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="proj-hero" aria-label="Casa MP">
+
+    <div class="proj-hero-bg">
+      <video autoplay muted loop playsinline>
+        <source src="assets/videos/12684187_1920_1080_60fps.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="proj-hero-overlay"></div>
+
+    <div class="proj-hero-content">
+      <span class="proj-hero-category">Residencial · Arquitetura</span>
+      <div class="proj-hero-title">
+        <div class="proj-line-wrap">
+          <span class="proj-title-l1">Casa</span>
+        </div>
+        <div class="proj-line-wrap">
+          <span class="proj-title-l2">MP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-scroll-hint" aria-hidden="true">
+      <div class="proj-scroll-line"></div>
+      <span>Rolar</span>
+    </div>
+
+  </section>
+
+  <div class="proj-content">
+
+  <!-- ============================================================
+       TEXTO — Primeiro bloco
+  ============================================================ -->
+  <section class="proj-section proj-section--left">
+
+    <span class="proj-label">Projeto de interiores</span>
+    <p class="proj-quote">
+      Nesta casa, desenvolvemos o projeto de interiores e repensamos a disposição dos ambientes.
+    </p>
+    <p class="proj-body">
+      Removemos algumas paredes para criar um espaço mais amplo e integrado, atendendo ao desejo dos clientes.
+    </p>
+    <div class="proj-sep"></div>
+    <p class="proj-body">
+      Como a porta de entrada fica de frente para a sala de estar, projetamos um hall com uma divisão em ripas de marcenaria, trazendo privacidade e elegância logo na chegada.
+    </p>
+
+  </section>
+
+  <!-- ============================================================
+       GALERIA — Três imagens
+  ============================================================ -->
+  <div class="proj-gallery">
+
+    <div class="gal-triple">
+      <div class="gal-triple-left">
+        <div class="gal-block">
+          <img
+            src="assets/img/interiores-casa-moderna-13.jpg"
+            alt="Casa MP — espaço integrado"
+          >
+        </div>
+      </div>
+      <div class="gal-triple-right">
+        <div class="gal-block gal-block-a">
+          <img
+            src="assets/img/sala-dois-ambientes-8.jpg"
+            alt="Casa MP — sala integrada"
+          >
+        </div>
+        <div class="gal-block gal-block-b">
+          <img
+            src="assets/casa-mp/casa-mp-foto.jpg"
+            alt="Casa MP — detalhe de acabamento"
+            style="object-position: center 60%;"
+          >
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       TEXTO — Segundo bloco
+  ============================================================ -->
+  <section class="proj-section proj-section--right">
+
+    <span class="proj-label">Transformação estrutural</span>
+    <p class="proj-quote">
+      Nesta casa, derrubamos várias paredes, fizemos reforços estruturais e mantivemos alguns pilares que revestimos com painéis para dar um toque especial.
+    </p>
+    <p class="proj-body">
+      Integramos a sala de estar, jantar e cozinha, criando um espaço amplo e funcional. A casa cresceu muito e ficou perfeita para o que os clientes buscavam.
+    </p>
+
+  </section>
+
+  <!-- ============================================================
+       FOOTER / CTA
+  ============================================================ -->
+  <footer class="proj-footer">
+
+    <p class="proj-footer-cta">
+      Vamos projetar<br>o seu espaço.
+    </p>
+
+    <div class="proj-footer-links">
+      <a href="index.html#chapter-contact" class="proj-footer-link">
+        Iniciar conversa <span>→</span>
+      </a>
+      <a href="index.html#chapter-projects" class="proj-footer-link">
+        Ver todos os projetos <span>→</span>
+      </a>
+    </div>
+
+  </footer>
+
+  </div><!-- /.proj-content -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="project.js"></script>
+</body>
+</html>

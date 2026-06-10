@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arquitetura e Vida</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+    img { display: block; }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       INTRO LOADER
+       Sequência de entrada: "ARQUITETURA" → "VIDA" → separação
+  ============================================================ -->
+  <div id="intro-loader" aria-hidden="true">
+    <div id="loader-content">
+      <div class="loader-line-wrap">
+        <div id="loader-line-arquitetura">ARQUITETURA</div>
+      </div>
+      <div class="loader-line-wrap loader-line-wrap--e">
+        <div id="loader-line-e">E</div>
+      </div>
+      <div class="loader-line-wrap">
+        <div id="loader-line-vida">VIDA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       NAVEGAÇÃO FIXA
+  ============================================================ -->
+  <!-- Identidade ARQUITETURA — canto superior esquerdo (revelada após loader) -->
+  <div id="identity-arquitetura" aria-hidden="true">
+    <span id="logo-arquitetura">ARQUITETURA</span>
+    <span id="logo-e">E</span>
+  </div>
+
+  <!-- Identidade VIDA — canto inferior direito (revelada após loader) -->
+  <div id="identity-vida" aria-hidden="true">VIDA</div>
+
+  <nav id="nav-fixed" role="navigation" aria-label="Navegação principal">
+    <ul id="nav-links" role="list">
+      <li><a href="#chapter-manifesto">Manifesto</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="projetos.html">Projetos</a></li>
+      <li><a href="#chapter-contact">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       HORIZONTAL SCROLL — container principal
+       #horizontal-scroll será pinned via GSAP ScrollTrigger
+       #horizontal-wrapper receberá translateX progressivo
+  ============================================================ -->
+  <div id="horizontal-scroll">
+    <div id="horizontal-wrapper">
+
+      <!-- ======================================================
+           CAPÍTULO 01 — MANIFESTO
+      ====================================================== -->
+      <section id="chapter-manifesto" class="chapter" aria-label="Manifesto">
+
+        <div class="chapter-inner">
+
+          <div class="manifesto-headline">
+            <span class="headline-line headline-serif">Arquitetura</span>
+            <span class="headline-line headline-sans">e vida.</span>
+          </div>
+
+          <div class="manifesto-body">
+            <p>
+              <span class="ab-sans">Projetamos</span>
+              <span class="ab-serif"> espaços que habitam</span>
+              <span class="ab-sans"> as pessoas.</span>
+              <span class="ab-serif"> Cada linha,</span>
+              <span class="ab-sans"> cada luz,</span>
+              <span class="ab-serif"> cada silêncio —</span>
+              <span class="ab-sans"> tudo compõe</span>
+              <span class="ab-serif"> uma única história.</span>
+            </p>
+          </div>
+
+          <!-- Imagem héroe: visível no primeiro viewport, inicia a narrativa -->
+          <figure class="image-block image-block--hero">
+            <img
+              src="assets/home/464411749_17999337356686596_3109666574026595682_n.jpg"
+              alt="Composição espacial — abertura da narrativa"
+            >
+          </figure>
+
+          <div class="manifesto-images">
+            <figure class="image-block image-block--primary">
+              <img
+                src="assets/home/572571005_18043205630686596_905785900578735487_n.jpg"
+                alt="Projeto residencial — detalhe de interior"
+              >
+            </figure>
+            <figure class="image-block image-block--secondary">
+              <img
+                src="assets/home/568543497_18042635480686596_1011192354326847592_n.jpg"
+                alt="Projeto residencial — composição espacial"
+              >
+            </figure>
+            <figure class="image-block image-block--accent">
+              <img
+                src="assets/home/534644426_18034243871686596_2671582012443852607_n.jpg"
+                alt="Projeto residencial — ambiente"
+              >
+            </figure>
+          </div>
+
+          <!-- Interlúdio tipográfico — ocupa o vazio entre a hero e as imagens seguintes -->
+          <div class="manifesto-interlude" aria-hidden="true">
+            <span class="interlude-label">espaço · luz · silêncio</span>
+            <p class="interlude-serif">Do concreto</p>
+            <p class="interlude-sans">ao humano.</p>
+            <span class="interlude-sub">Uma única história.</span>
+          </div>
+
+          <div class="manifesto-word-decor" aria-hidden="true">
+            <span>ESPAÇO</span>
+          </div>
+
+          <!-- Gap 1: topo do primeiro viewport (acima do headline) -->
+          <div class="manifesto-bg-word manifesto-bg-word--materia" aria-hidden="true">MATÉRIA</div>
+
+          <!-- Gap 2: viewport do interlúdio (abaixo do texto "Do concreto ao humano.") -->
+          <div class="manifesto-bg-word manifesto-bg-word--silencio" aria-hidden="true">SILÊNCIO</div>
+
+        </div>
+
+      </section>
+
+      <!-- ======================================================
+           CAPÍTULO 02 — SOBRE
+      ====================================================== -->
+      <section id="chapter-about" class="chapter" aria-label="Sobre o escritório">
+
+        <div class="chapter-inner">
+
+          <div class="about-portrait-group">
+            <figure class="portrait portrait--lead">
+              <img
+                src="assets/arquitetas-1.jpg"
+                alt="Arquitetas do escritório Arquitetura e Vida"
+              >
+            </figure>
+            <figure class="portrait portrait--secondary">
+              <img
+                src="assets/arquitetas-2.jpg"
+                alt="Arquitetas em projeto"
+              >
+            </figure>
+            <figure class="portrait portrait--tertiary">
+              <img
+                src="assets/arquitetas-3.jpg"
+                alt="Ambiente de trabalho"
+              >
+            </figure>
+          </div>
+
+          <div class="about-text-block">
+            <p class="about-statement">
+              <span class="ab-sans">Um escritório</span>
+              <span class="ab-serif"> fundado na crença</span>
+              <span class="ab-sans"> de que arquitetura</span>
+              <span class="ab-serif"> transforma</span>
+              <span class="ab-sans"> não apenas espaços —</span>
+              <span class="ab-serif"> mas a maneira como vivemos.</span>
+            </p>
+            <p class="about-body">
+              <span class="ab-serif">Combinamos </span>
+              <span class="ab-sans">rigor técnico</span>
+              <span class="ab-serif"> com sensibilidade estética</span>
+              <span class="ab-sans"> para criar ambientes</span>
+              <span class="ab-serif"> que dialogam com quem os habita.</span>
+              <span class="ab-sans"> Cada projeto</span>
+              <span class="ab-serif"> parte de uma escuta profunda.</span>
+            </p>
+          </div>
+
+          <!-- ---- Zona extra: imagens + textos de fundo (96vw → 253vw) ---- -->
+          <div class="about-extra" aria-hidden="true">
+
+            <span class="about-bg-word about-bg-word--pessoas">PESSOAS</span>
+
+            <!-- Composição A: imagem grande -->
+            <figure class="about-extra-img about-extra-img--a">
+              <img
+                src="assets/home/468853074_18004095407686596_2971741510449973725_n.jpg"
+                alt="Projeto residencial — espaço projetado"
+              >
+            </figure>
+
+            <!-- Composição B: nasce de dentro de A -->
+            <figure class="about-extra-img about-extra-img--b">
+              <img
+                src="assets/home/468921422_18004097906686596_8288521957418560409_n.jpg"
+                alt="Detalhe de interior — composição"
+              >
+            </figure>
+
+            <span class="about-bg-word about-bg-word--vida">vida.</span>
+
+            <!-- Composição C: imagem grande -->
+            <figure class="about-extra-img about-extra-img--c">
+              <img
+                src="assets/home/503845198_18025696865686596_6550666323427430538_n.jpg"
+                alt="Ambiente residencial — narrativa visual"
+              >
+            </figure>
+
+            <!-- Composição D: nasce de dentro de C -->
+            <figure class="about-extra-img about-extra-img--d">
+              <img
+                src="assets/home/632939618_18393929530144393_1447686982456910386_n.jpg"
+                alt="Arquitetura — detalhe de projeto"
+              >
+            </figure>
+
+            <!-- Gap 3: vazio ao final do capítulo Sobre (222–260vw) -->
+            <span class="about-bg-word about-bg-word--projeto">projeto.</span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ======================================================
+           CAPÍTULO 03 — PROJETOS
+      ====================================================== -->
+      <section id="chapter-projects" class="chapter" aria-label="Projetos">
+
+        <div class="chapter-inner">
+
+          <div class="projects-headline">
+            <span class="headline-sans">Projetos</span>
+          </div>
+
+          <div class="projects-grid">
+
+            <article class="project-entry" id="project-apartamento-mf">
+              <a href="apartamento-mf.html" aria-label="Ver projeto Apartamento MF">
+                <figure class="project-cover">
+                  <img
+                    src="assets/img/interiores-casa-moderna-13.jpg"
+                    alt="Apartamento MF — interior"
+                  >
+                </figure>
+                <div class="project-meta">
+                  <span class="project-index">01</span>
+                  <h2 class="project-title">Apartamento MF</h2>
+                  <span class="project-type">Residencial · Interior</span>
+                </div>
+                <figure class="project-detail">
+                  <img
+                    src="assets/apartamento-mf/apto-mf-foto.jpg"
+                    alt="Apartamento MF — detalhe"
+                  >
+                </figure>
+              </a>
+            </article>
+
+            <article class="project-entry" id="project-casa-mp">
+              <a href="casa-mp.html" aria-label="Ver projeto Casa MP">
+                <figure class="project-cover">
+                  <img
+                    src="assets/img/casa-moderna-con-patio-interior_f8adf9f7_2000x1334.jpg"
+                    alt="Casa MP — exterior"
+                  >
+                </figure>
+                <div class="project-meta">
+                  <span class="project-index">02</span>
+                  <h2 class="project-title">Casa MP</h2>
+                  <span class="project-type">Residencial · Arquitetura</span>
+                </div>
+                <figure class="project-detail">
+                  <img
+                    src="assets/casa-mp/casa-mp-foto.jpg"
+                    alt="Casa MP — detalhe"
+                  >
+                </figure>
+              </a>
+            </article>
+
+            <article class="project-entry" id="project-condominio-ponta-figueira">
+              <a href="condominio-ponta-figueira.html" aria-label="Ver projeto Condomínio Ponta da Figueira">
+                <figure class="project-cover">
+                  <img
+                    src="assets/condominio-ponta-figueira/cond-ponta--figueira-foto2.jpg"
+                    alt="Condomínio Ponta da Figueira — vista"
+                  >
+                </figure>
+                <div class="project-meta">
+                  <span class="project-index">03</span>
+                  <h2 class="project-title">Condomínio Ponta da Figueira</h2>
+                  <span class="project-type">Coletivo · Paisagem</span>
+                </div>
+                <figure class="project-detail">
+                  <img
+                    src="assets/condominio-ponta-figueira/cond-ponta-figueira-foto.jpg"
+                    alt="Condomínio Ponta da Figueira — detalhe"
+                  >
+                </figure>
+              </a>
+            </article>
+
+          </div>
+
+          <div class="projects-ambient-images">
+            <figure class="image-block">
+              <img
+                src="assets/img/design-moderno-para-casas.jpg"
+                alt="Atmosfera de projeto"
+              >
+            </figure>
+            <figure class="image-block">
+              <img
+                src="assets/home/518863744_4175905839312189_7363631906036304506_n.jpg"
+                alt="Detalhe construtivo"
+              >
+            </figure>
+            <figure class="image-block">
+              <img
+                src="assets/img/sala-dois-ambientes-8.jpg"
+                alt="Espaço interno"
+              >
+            </figure>
+            <figure class="image-block">
+              <img
+                src="assets/img/moderna.jpg"
+                alt="Composição arquitetônica"
+              >
+            </figure>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ======================================================
+           CAPÍTULO 04 — CONTATO
+      ====================================================== -->
+      <section id="chapter-contact" class="chapter chapter--last" aria-label="Contato">
+
+        <div class="chapter-inner">
+
+          <div class="contact-ambient">
+            <figure class="image-block image-block--fullbleed">
+              <img
+                src="assets/home/498569307_18023811491686596_6101950139546900743_n.jpg"
+                alt="Espaço arquitetônico — encerramento"
+              >
+            </figure>
+          </div>
+
+          <div class="contact-headline">
+            <span class="headline-serif">Vamos</span>
+            <span class="headline-sans">conversar.</span>
+          </div>
+
+          <div class="contact-body">
+            <p>
+              Todo projeto começa com uma conversa.
+              Conte-nos sobre o espaço que você imagina.
+            </p>
+          </div>
+
+          <address class="contact-details">
+            <a href="mailto:contato@arquiteturaevida.com.br" class="contact-email">
+              contato@arquiteturaevida.com.br
+            </a>
+            <a href="https://www.instagram.com/evidaarquitetura/" class="contact-instagram" target="_blank" rel="noopener">
+              @arquiteturaevida
+            </a>
+          </address>
+
+          <div class="contact-closing-identity" aria-hidden="true">
+            <span class="closing-arquitetura">ARQUITETURA</span>
+            <span class="closing-vida">VIDA</span>
+          </div>
+
+          <figure class="contact-image-side">
+            <img
+              src="assets/home/465925873_18001032356686596_9208598603609376729_n.jpg"
+              alt="Detalhe de projeto"
+            >
+          </figure>
+
+        </div>
+
+      </section>
+
+    </div><!-- /#horizontal-wrapper -->
+  </div><!-- /#horizontal-scroll -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre — Arquitetura e Vida</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+    img { display: block; }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Identidade fixa -->
+  <div class="page-identity-arq" aria-hidden="true">
+    <span class="arq-text">ARQUITETURA</span>
+    <span class="e-text">E</span>
+  </div>
+  <div class="page-identity-vida" aria-hidden="true">VIDA</div>
+
+  <!-- Navegação -->
+  <nav class="proj-nav" aria-label="Navegação">
+    <a href="index.html">← Início</a>
+    <a href="index.html#chapter-contact">Contato</a>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="sobre-hero">
+
+    <div class="sobre-hero-text">
+      <span class="sobre-eyebrow">O escritório</span>
+      <h1 class="sobre-heading">
+        <em>Arquitetura</em><br>
+        que transforma.
+      </h1>
+    </div>
+
+    <figure class="sobre-hero-img">
+      <img
+        src="assets/arquitetas-1.jpg"
+        alt="Equipe Arquitetura e Vida"
+      >
+    </figure>
+
+  </section>
+
+  <!-- ============================================================
+       DECLARAÇÃO
+  ============================================================ -->
+  <section class="sobre-statement-section">
+
+    <p class="sobre-statement-text">
+      Um escritório fundado na crença de que arquitetura transforma não apenas espaços — mas a maneira como vivemos.
+    </p>
+
+    <p class="sobre-body-text">
+      Combinamos rigor técnico com sensibilidade estética para criar ambientes que dialogam com quem os habita. Cada projeto parte de uma escuta profunda, de um entendimento genuíno das necessidades e sonhos dos nossos clientes.<br><br>
+      Acreditamos que o espaço pode ser um instrumento de bem-estar — e é com essa convicção que nos dedicamos a cada detalhe, do conceito à entrega.
+    </p>
+
+  </section>
+
+  <!-- ============================================================
+       EQUIPE
+  ============================================================ -->
+  <section class="sobre-team">
+
+    <div class="sobre-team-header">
+      <span class="sobre-eyebrow">Quem somos</span>
+    </div>
+
+    <div class="sobre-architects">
+
+      <article class="sobre-architect">
+        <figure class="sobre-architect-photo">
+          <img
+            src="assets/daphine-beylouni.jpg"
+            alt="Daphine Beylouni — Arquiteta"
+          >
+        </figure>
+        <div class="sobre-architect-info">
+          <span class="sobre-architect-name">Daphine Beylouni</span>
+          <span class="sobre-architect-role">Arquiteta</span>
+        </div>
+      </article>
+
+      <article class="sobre-architect">
+        <figure class="sobre-architect-photo">
+          <img
+            src="assets/eliane-hennemann.jpg"
+            alt="Eliane Hennemann — Arquiteta"
+          >
+        </figure>
+        <div class="sobre-architect-info">
+          <span class="sobre-architect-name">Eliane Hennemann</span>
+          <span class="sobre-architect-role">Arquiteta</span>
+        </div>
+      </article>
+
+      <article class="sobre-architect">
+        <figure class="sobre-architect-photo">
+          <img
+            src="assets/victória-sebben.jpg"
+            alt="Victória Sebben — Arquiteta"
+          >
+        </figure>
+        <div class="sobre-architect-info">
+          <span class="sobre-architect-name">Victória Sebben</span>
+          <span class="sobre-architect-role">Arquiteta</span>
+        </div>
+      </article>
+
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       FOOTER / CTA
+  ============================================================ -->
+  <footer class="proj-footer">
+
+    <p class="proj-footer-cta">
+      Vamos projetar<br>o seu espaço.
+    </p>
+
+    <div class="proj-footer-links">
+      <a href="index.html#chapter-contact" class="proj-footer-link">
+        Iniciar conversa <span>→</span>
+      </a>
+      <a href="index.html#chapter-projects" class="proj-footer-link">
+        Ver projetos <span>→</span>
+      </a>
+    </div>
+
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="sobre.js"></script>
+</body>
+</html>

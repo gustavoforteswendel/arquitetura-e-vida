@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Condomínio Ponta da Figueira — Arquitetura e Vida</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+    img { display: block; }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Identidade fixa -->
+  <div class="page-identity-arq" aria-hidden="true">
+    <span class="arq-text">ARQUITETURA</span>
+    <span class="e-text">E</span>
+  </div>
+  <div class="page-identity-vida" aria-hidden="true">VIDA</div>
+
+  <!-- Navegação -->
+  <nav class="proj-nav" aria-label="Navegação do projeto">
+    <a href="index.html#chapter-projects">← Projetos</a>
+    <a href="index.html#chapter-contact">Contato</a>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="proj-hero" aria-label="Condomínio Ponta da Figueira Marina">
+
+    <div class="proj-hero-bg">
+      <video autoplay muted loop playsinline>
+        <source src="assets/videos/17224760-hd_1920_1080_30fps.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="proj-hero-overlay"></div>
+
+    <div class="proj-hero-content">
+      <span class="proj-hero-category">Coletivo · Paisagem · Interior</span>
+      <div class="proj-hero-title">
+        <div class="proj-line-wrap">
+          <span class="proj-title-l1">Condomínio</span>
+        </div>
+        <div class="proj-line-wrap">
+          <span class="proj-title-l2">Ponta da Figueira</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-scroll-hint" aria-hidden="true">
+      <div class="proj-scroll-line"></div>
+      <span>Rolar</span>
+    </div>
+
+  </section>
+
+  <div class="proj-content">
+
+  <!-- ============================================================
+       TEXTO — Interior
+  ============================================================ -->
+  <section class="proj-section proj-section--split">
+
+    <div>
+      <span class="proj-label">Segundo andar</span>
+      <p class="proj-quote">
+        Neste projeto, o segundo andar era muito segmentado e não fazia sentido para os clientes.
+      </p>
+    </div>
+
+    <div style="padding-top: 12vh;">
+      <p class="proj-body">
+        Com algumas alterações estratégicas, eliminamos paredes, reaproveitamos um espaço perdido e transformamos tudo em um estar íntimo aconchegante e funcional.
+      </p>
+      <div class="proj-sep"></div>
+      <p class="proj-body">
+        O resultado? Uma casa mais fluida, bonita e cheia de vida!
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       GALERIA — Imagem grande + detalhe
+  ============================================================ -->
+  <div class="proj-gallery">
+
+    <div class="gal-asymm">
+      <div class="gal-block gal-small">
+        <img
+          src="assets/img/083951fac74bffe5f64aafabe3ed08bc.jpg"
+          alt="Condomínio Ponta da Figueira — detalhe de interior"
+        >
+      </div>
+      <div class="gal-block gal-large">
+        <img
+          src="assets/condominio-ponta-figueira/cond-ponta--figueira-foto2.jpg"
+          alt="Condomínio Ponta da Figueira — espaço transformado"
+        >
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       TEXTO — Exterior
+  ============================================================ -->
+  <section class="proj-section proj-section--center">
+
+    <span class="proj-label">Área externa</span>
+    <p class="proj-quote">
+      Projetamos essa área externa com muito carinho, pensando em criar um refúgio acolhedor e cheio de verde.
+    </p>
+    <p class="proj-body">
+      Na divisa com o vizinho, usamos uma vegetação mais alta para garantir mais privacidade.
+    </p>
+
+  </section>
+
+  <!-- ============================================================
+       GALERIA — Dois fragmentos em plano cheio
+  ============================================================ -->
+  <div class="proj-gallery">
+
+    <div class="gal-full">
+      <div class="gal-block">
+        <img
+          src="assets/condominio-ponta-figueira/cond-ponta-figueira-foto.jpg"
+          alt="Condomínio Ponta da Figueira — área verde externa"
+          style="object-position: center 60%;"
+        >
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       FOOTER / CTA
+  ============================================================ -->
+  <footer class="proj-footer">
+
+    <p class="proj-footer-cta">
+      Vamos projetar<br>o seu espaço.
+    </p>
+
+    <div class="proj-footer-links">
+      <a href="index.html#chapter-contact" class="proj-footer-link">
+        Iniciar conversa <span>→</span>
+      </a>
+      <a href="index.html#chapter-projects" class="proj-footer-link">
+        Ver todos os projetos <span>→</span>
+      </a>
+    </div>
+
+  </footer>
+
+  </div><!-- /.proj-content -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="project.js"></script>
+</body>
+</html>

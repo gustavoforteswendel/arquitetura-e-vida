@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apartamento MF — Arquitetura e Vida</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+    img { display: block; }
+  </style>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Identidade fixa -->
+  <div class="page-identity-arq" aria-hidden="true">
+    <span class="arq-text">ARQUITETURA</span>
+    <span class="e-text">E</span>
+  </div>
+  <div class="page-identity-vida" aria-hidden="true">VIDA</div>
+
+  <!-- Navegação -->
+  <nav class="proj-nav" aria-label="Navegação do projeto">
+    <a href="index.html#chapter-projects">← Projetos</a>
+    <a href="index.html#chapter-contact">Contato</a>
+  </nav>
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="proj-hero" aria-label="Apartamento MF">
+
+    <div class="proj-hero-bg">
+      <video autoplay muted loop playsinline>
+        <source src="assets/videos/12684293_1920_1080_60fps.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="proj-hero-overlay"></div>
+
+    <div class="proj-hero-content">
+      <span class="proj-hero-category">Residencial · Interior</span>
+      <div class="proj-hero-title">
+        <div class="proj-line-wrap">
+          <span class="proj-title-l1">Apartamento</span>
+        </div>
+        <div class="proj-line-wrap">
+          <span class="proj-title-l2">MF</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-scroll-hint" aria-hidden="true">
+      <div class="proj-scroll-line"></div>
+      <span>Rolar</span>
+    </div>
+
+  </section>
+
+  <div class="proj-content">
+
+  <!-- ============================================================
+       TEXTO — Conceito
+  ============================================================ -->
+  <section class="proj-section proj-section--split">
+
+    <div>
+      <span class="proj-label">Conceito</span>
+      <p class="proj-quote">
+        Neste projeto, removemos uma parede para ampliar a cozinha e integrar o ambiente com a sala de estar e jantar.
+      </p>
+    </div>
+
+    <div style="padding-top: 9vh;">
+      <p class="proj-body">
+        No lugar da antiga divisória, criamos uma bancada generosa de um lado, onde os convidados podem se acomodar confortavelmente, enquanto, do outro, os moradores cozinham e aproveitam juntos o momento.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       GALERIA — Duo assimétrico
+  ============================================================ -->
+  <div class="proj-gallery">
+
+    <div class="gal-duo">
+      <div class="gal-block gal-main">
+        <img
+          src="assets/img/083951fac74bffe5f64aafabe3ed08bc.jpg"
+          alt="Apartamento MF — ambiente integrado"
+        >
+      </div>
+      <div class="gal-block gal-side">
+        <img
+          src="assets/img/apartment-cabinets-chairs-813692.jpg"
+          alt="Apartamento MF — detalhe de bancada"
+        >
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================
+       INTERSTÍCIO — número decorativo + separador de ritmo
+  ============================================================ -->
+  <div style="
+    position: relative;
+    padding: 8vh 9vw 0;
+    overflow: hidden;
+  ">
+    <div class="proj-num-decor" aria-hidden="true"
+      style="position: absolute; right: 6vw; bottom: -0.05em; line-height: 0.82;">
+      01
+    </div>
+    <div class="proj-sep"></div>
+    <p class="proj-body" style="max-width: 400px;">
+      Uma conversa contínua entre quem prepara e quem aguarda — o espaço como mediador de encontros.
+    </p>
+  </div>
+
+  <!-- ============================================================
+       FOOTER / CTA
+  ============================================================ -->
+  <footer class="proj-footer">
+
+    <p class="proj-footer-cta">
+      Vamos projetar<br>o seu espaço.
+    </p>
+
+    <div class="proj-footer-links">
+      <a href="index.html#chapter-contact" class="proj-footer-link">
+        Iniciar conversa <span>→</span>
+      </a>
+      <a href="index.html#chapter-projects" class="proj-footer-link">
+        Ver todos os projetos <span>→</span>
+      </a>
+    </div>
+
+  </footer>
+
+  </div><!-- /.proj-content -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="project.js"></script>
+</body>
+</html>
