@@ -59,7 +59,7 @@ a {
 ul, ol { list-style: none; }
 address { font-style: normal; }
 figure { margin: 0; }
-h1, h2, h3 { font-weight: inherit; }
+h1, h2, h3 { font-weight: inherit; font-size: inherit; }
 
 /* ============================================================
    INTRO LOADER
