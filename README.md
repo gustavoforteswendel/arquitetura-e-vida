@@ -1,89 +1,32 @@
-# Arquitetura e Vida
+# Arquitetura e Vida – Projeto Conceitual de Redesign
 
-Uma experiência digital premium desenvolvida para o escritório **Arquitetura e Vida**, focada em apresentar projetos arquitetônicos de forma imersiva, elegante e contemporânea.
+Este projeto consiste em uma proposta conceitual de redesign desenvolvida para demonstrar uma possível abordagem moderna e imersiva para a presença digital do escritório **Arquitetura e Vida**.
 
-O objetivo deste projeto não é apenas exibir informações, mas transformar a navegação em uma experiência visual, utilizando animações fluidas, composição editorial e uma identidade minimalista inspirada em referências internacionais de design.
+O foco do projeto foi explorar uma experiência visual diferenciada, utilizando animações, narrativa durante a navegação e uma apresentação inspirada em layouts editoriais, valorizando os projetos e a identidade da marca.
 
-## ✨ Características
+## Objetivos
 
-- Layout totalmente personalizado (sem frameworks CSS)
-- Desenvolvimento em HTML, CSS e JavaScript puro
-- Animações avançadas com GSAP
-- Scroll horizontal e vertical integrado
-- Transições cinematográficas entre páginas
-- Loader animado exclusivo
-- Composição dinâmica de imagens
-- Navegação focada em experiência premium (UX)
-- Design responsivo
+- Criar uma experiência mais imersiva para o usuário;
+- Explorar técnicas modernas de front-end e animações;
+- Demonstrar uma proposta visual com foco em direção de arte e UX;
+- Servir como estudo de design e peça de portfólio.
 
-## 🛠️ Tecnologias
+## Tecnologias utilizadas
 
 - HTML5
 - CSS3
-- JavaScript (ES6+)
-- GSAP
-  - ScrollTrigger
-  - Motion
-- Google Fonts
+- JavaScript
+- GSAP (animações)
+- Vercel (deploy)
 
-## 📂 Estrutura do projeto
+## Demonstração
 
-```text
-assets/
-├── home/
-├── apartamento-mf/
-├── casa-mp/
-├── condominio-ponta-figueira/
-├── img/
-└── videos/
+🔗 https://arquitetura-e-vida.vercel.app/
 
-index.html
-sobre.html
-projetos.html
-apartamento-mf.html
-casa-mp.html
-condominio-ponta-figueira.html
+## Aviso
 
-style.css
-main.js
-sobre.js
-projetos.js
-project.js
-```
+Este é um **projeto conceitual desenvolvido exclusivamente para fins de estudo e portfólio**.
 
-## 🎯 Conceito
+A versão atual utiliza **imagens geradas por inteligência artificial** para composição visual, não representando projetos oficiais do escritório nem possuindo qualquer vínculo institucional com a empresa.
 
-A proposta do projeto é abandonar o padrão tradicional de sites institucionais e criar uma narrativa visual onde cada seção funciona como um capítulo.
-
-As imagens não seguem grids convencionais. Elas são posicionadas de forma assimétrica, criando profundidade, movimento e ritmo durante a navegação.
-
-Todo o desenvolvimento prioriza:
-
-- sofisticação;
-- minimalismo;
-- tipografia marcante;
-- animações discretas e elegantes;
-- valorização dos projetos arquitetônicos.
-
-## 🚀 Status
-
-Projeto em desenvolvimento.
-
-Atualmente estão sendo implementadas:
-
-- [x] Home
-- [x] Loader inicial
-- [x] Sistema de animações
-- [x] Navegação principal
-- [x] Estrutura das páginas de projetos
-- [ ] Página Sobre
-- [ ] Ajustes finais de responsividade
-- [ ] Otimização de performance
-
-## 📌 Observações
-
-Este projeto foi desenvolvido utilizando apenas tecnologias web nativas, priorizando performance, controle total sobre as animações e uma experiência visual diferenciada.
-
----
-
-Desenvolvido por **Gustavo Wendel**.
+Todo o conteúdo foi organizado apenas para demonstrar conceitos de design, experiência do usuário e desenvolvimento front-end.
