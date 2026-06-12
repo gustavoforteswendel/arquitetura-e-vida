@@ -682,9 +682,17 @@ function initNavigation() {
   document.querySelectorAll('#nav-links a').forEach((link) => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
+      if (!href) return;
 
-      /* Links externos (sobre.html, etc.) — seguem normalmente */
-      if (!href || !href.startsWith('#')) return;
+      /* Links externos — transição de saída antes de navegar */
+      if (!href.startsWith('#')) {
+        e.preventDefault();
+        gsap.to('#horizontal-wrapper', {
+          autoAlpha: 0, y: -20, duration: 0.55, ease: 'power2.inOut',
+          onComplete: () => { window.location.href = href; }
+        });
+        return;
+      }
 
       e.preventDefault();
       const target = document.querySelector(href);
@@ -794,12 +802,33 @@ function initResponsiveBehavior() {
    ENTRY POINT
    ============================================================ */
 window.addEventListener('load', () => {
-  const loaderTl = initLoader();
+  const loaderSeen = sessionStorage.getItem('av-loader-seen');
 
-  loaderTl.eventCallback('onComplete', () => {
+  if (loaderSeen) {
+    /* Visita de retorno — pula o loader e revela o conteúdo diretamente */
+    const loader       = document.querySelector('#intro-loader');
+    const identityArq  = document.querySelector('#identity-arquitetura');
+    const identityVida = document.querySelector('#identity-vida');
+
+    if (loader) loader.style.display = 'none';
+    gsap.set([identityArq, identityVida], { opacity: 1 });
+
+    /* Fade-in suave do documento (oculto pelo script inline no <head>) */
+    gsap.to(document.documentElement, { opacity: 1, duration: 0.45, ease: 'power2.out' });
+
     initResponsiveBehavior();
     initProjectInteractions();
     initProjectTransitions();
     ScrollTrigger.refresh();
-  });
+  } else {
+    sessionStorage.setItem('av-loader-seen', '1');
+    const loaderTl = initLoader();
+
+    loaderTl.eventCallback('onComplete', () => {
+      initResponsiveBehavior();
+      initProjectInteractions();
+      initProjectTransitions();
+      ScrollTrigger.refresh();
+    });
+  }
 });

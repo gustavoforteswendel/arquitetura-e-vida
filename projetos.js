@@ -46,34 +46,32 @@ window.addEventListener('load', () => {
       }
     });
 
-    /* ── 0 → 0.30: pausa dramática; cover em tela cheia ── */
-    tl.to({}, { duration: 0.30 });
+    /* ── 0 → 0.20: pausa — cover em tela cheia ── */
+    tl.to({}, { duration: 0.20 });
 
-    /* ── 0.30 → 0.52: painel de info sobe ── */
+    /* ── 0.20 → 0.46: painel de info sobe ── */
     tl.fromTo(infoId,
       { autoAlpha: 0, y: 28 },
-      { autoAlpha: 1, y: 0, duration: 0.22, ease: 'power3.out' },
-      0.30
+      { autoAlpha: 1, y: 0, duration: 0.26, ease: 'power3.out' },
+      0.20
     );
 
     if (nextCoverId) {
-      /* ── 0.56 → 0.70: painel de info some ── */
+      /* ── 0.68 → 0.84: painel de info some (janela legível: 0.46 → 0.68) ── */
       tl.to(infoId, {
-        autoAlpha: 0, y: -22, duration: 0.14, ease: 'power2.in'
-      }, 0.56);
+        autoAlpha: 0, y: -22, duration: 0.16, ease: 'power2.in'
+      }, 0.68);
 
-      /* ── 0.62 → 1.00: próximo cover sobe de baixo para cima ──
-         expo.out: arranca rápido, desacelera suavemente no final.
-         O inset do topo vai de 100% → 0%: a imagem cresce de baixo. */
+      /* ── 0.70 → 1.10: próximo cover sobe de baixo para cima ── */
       tl.to(nextCoverId, {
         clipPath: 'inset(0% 0% 0% 0%)',
-        duration: 0.38,
+        duration: 0.40,
         ease: 'expo.out',
-      }, 0.62);
+      }, 0.70);
     } else {
       /* Último projeto: info some ao final da rolagem */
       tl.to(infoId, {
-        autoAlpha: 0, y: -22, duration: 0.14, ease: 'power2.in'
+        autoAlpha: 0, y: -22, duration: 0.16, ease: 'power2.in'
       }, 0.82);
     }
 

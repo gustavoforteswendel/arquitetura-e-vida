@@ -58,6 +58,113 @@ function initEntry() {
   );
 }
 
+/* ---- Cálculo da interseção real entre dois elementos DOM ---- */
+function calcEmergingClip(primaryEl, secondaryEl) {
+  const pR = primaryEl.getBoundingClientRect();
+  const sR = secondaryEl.getBoundingClientRect();
+
+  const oL = Math.max(pR.left,   sR.left);
+  const oR = Math.min(pR.right,  sR.right);
+  const oT = Math.max(pR.top,    sR.top);
+  const oB = Math.min(pR.bottom, sR.bottom);
+
+  if (oL >= oR || oT >= oB) return 'inset(0% 100% 0% 0%)';
+
+  const cT = Math.max(0, (oT - sR.top)    / sR.height * 100).toFixed(1);
+  const cR = Math.max(0, (sR.right - oR)  / sR.width  * 100).toFixed(1);
+  const cB = Math.max(0, (sR.bottom - oB) / sR.height * 100).toFixed(1);
+  const cL = Math.max(0, (oL - sR.left)   / sR.width  * 100).toFixed(1);
+
+  return `inset(${cT}% ${cR}% ${cB}% ${cL}%)`;
+}
+
+/* ---- Reveals das galerias com efeito "emerge de dentro" nas duplas ---- */
+function initGalleryReveals() {
+
+  /* gal-duo — primária sobe, secundária emerge de dentro da primária */
+  document.querySelectorAll('.gal-duo').forEach((wrap) => {
+    const primary   = wrap.querySelector('.gal-main');
+    const secondary = wrap.querySelector('.gal-side');
+    const st = { trigger: wrap, start: 'top 92%', toggleActions: 'play none none none' };
+
+    gsap.fromTo(primary,
+      { clipPath: 'inset(100% 0 0 0)' },
+      { clipPath: 'inset(0% 0 0 0)', duration: 1.35, ease: 'expo.out', scrollTrigger: st }
+    );
+    const pImg = primary.querySelector('img');
+    if (pImg) gsap.fromTo(pImg, { scale: 1.12 }, { scale: 1, duration: 1.9, ease: 'power2.out', scrollTrigger: st });
+
+    if (secondary) {
+      const fromClip = calcEmergingClip(primary, secondary);
+      gsap.set(secondary, { clipPath: fromClip });
+      gsap.to(secondary, {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        duration: 1.5, ease: 'expo.inOut', delay: 0.55,
+        scrollTrigger: st
+      });
+      const sImg = secondary.querySelector('img');
+      if (sImg) {
+        gsap.set(sImg, { scale: 1.15 });
+        gsap.to(sImg, { scale: 1, duration: 2.1, ease: 'power2.out', delay: 0.55, scrollTrigger: st });
+      }
+    }
+  });
+
+  /* gal-asymm — grande sobe, pequena emerge de dentro da grande */
+  document.querySelectorAll('.gal-asymm').forEach((wrap) => {
+    const primary   = wrap.querySelector('.gal-large');
+    const secondary = wrap.querySelector('.gal-small');
+    const st = { trigger: wrap, start: 'top 92%', toggleActions: 'play none none none' };
+
+    gsap.fromTo(primary,
+      { clipPath: 'inset(100% 0 0 0)' },
+      { clipPath: 'inset(0% 0 0 0)', duration: 1.35, ease: 'expo.out', scrollTrigger: st }
+    );
+    const pImg = primary.querySelector('img');
+    if (pImg) gsap.fromTo(pImg, { scale: 1.12 }, { scale: 1, duration: 1.9, ease: 'power2.out', scrollTrigger: st });
+
+    if (secondary) {
+      const fromClip = calcEmergingClip(primary, secondary);
+      gsap.set(secondary, { clipPath: fromClip });
+      gsap.to(secondary, {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        duration: 1.5, ease: 'expo.inOut', delay: 0.55,
+        scrollTrigger: st
+      });
+      const sImg = secondary.querySelector('img');
+      if (sImg) {
+        gsap.set(sImg, { scale: 1.15 });
+        gsap.to(sImg, { scale: 1, duration: 2.1, ease: 'power2.out', delay: 0.55, scrollTrigger: st });
+      }
+    }
+  });
+
+  /* gal-triple — três imagens com stagger sequencial */
+  document.querySelectorAll('.gal-triple').forEach((wrap) => {
+    const blocks = wrap.querySelectorAll('.gal-block');
+    const st = { trigger: wrap, start: 'top 92%', toggleActions: 'play none none none' };
+    blocks.forEach((el, i) => {
+      gsap.fromTo(el,
+        { clipPath: 'inset(100% 0 0 0)' },
+        { clipPath: 'inset(0% 0 0 0)', duration: 1.35, ease: 'expo.out', delay: i * 0.18, scrollTrigger: st }
+      );
+      const img = el.querySelector('img');
+      if (img) gsap.fromTo(img, { scale: 1.12 }, { scale: 1, duration: 1.9, ease: 'power2.out', delay: i * 0.18, scrollTrigger: st });
+    });
+  });
+
+  /* gal-full — imagem única, clip do topo */
+  document.querySelectorAll('.gal-full .gal-block').forEach((el) => {
+    const st = { trigger: el, start: 'top 92%', toggleActions: 'play none none none' };
+    gsap.fromTo(el,
+      { clipPath: 'inset(100% 0 0 0)' },
+      { clipPath: 'inset(0% 0 0 0)', duration: 1.35, ease: 'expo.out', scrollTrigger: st }
+    );
+    const img = el.querySelector('img');
+    if (img) gsap.fromTo(img, { scale: 1.12 }, { scale: 1, duration: 1.9, ease: 'power2.out', scrollTrigger: st });
+  });
+}
+
 /* ---- Reveals ao scroll ---- */
 function initScrollReveals() {
   /* Textos grandes */
@@ -82,27 +189,8 @@ function initScrollReveals() {
     );
   });
 
-  /* Imagens da galeria — clip-path do topo */
-  gsap.utils.toArray('.gal-block').forEach((el) => {
-    gsap.fromTo(el,
-      { clipPath: 'inset(100% 0 0 0)' },
-      {
-        clipPath: 'inset(0% 0 0 0)', duration: 1.35, ease: 'expo.out',
-        scrollTrigger: { trigger: el, start: 'top 92%' }
-      }
-    );
-
-    const img = el.querySelector('img');
-    if (img) {
-      gsap.fromTo(img,
-        { scale: 1.12 },
-        {
-          scale: 1, duration: 1.9, ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 92%' }
-        }
-      );
-    }
-  });
+  /* Galerias — efeito "emerge de dentro" nas duplas, clip sequencial nas demais */
+  initGalleryReveals();
 
   /* Footer */
   gsap.fromTo('.proj-footer-cta',
